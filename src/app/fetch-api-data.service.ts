@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://glacial-ocean-39750.herokuapp.com';
+const apiUrl = 'https://glacial-ocean-39750.herokuapp.com/';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class FetchApiDataService {
   // Making the API call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http.post(apiUrl + '/users', userDetails).pipe(
+    return this.http.post(apiUrl + 'users', userDetails).pipe(
       catchError(this.handleError)
     );
   }
