@@ -7,6 +7,14 @@ import { map } from 'rxjs/operators';
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://glacial-ocean-39750.herokuapp.com/';
 
+export interface User {
+  _id: string;
+  FavoriteMovies: Array<string>;
+  Username: string;
+  Email: string;
+  Birthday: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -118,8 +126,22 @@ export class FetchApiDataService {
     );
   }
 
+     // Get user's favorites movies list
+     getFavoriteMovies(username: any): Observable<any> {
+      const token = localStorage.getItem('token');
+      return this.http.get(apiUrl + 'users/' + username + '/movies', {
+        headers: new HttpHeaders(
+          {
+            Authorization: 'Bearer ' + token,
+          })
+      }).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
   // Making the API call for adding movies to a user's favorites
-  addFavoriteMovies(movieId: any): Observable<any> {
+  addFavoriteMovie(movieId: any): Observable<any> {
     const username = localStorage.getItem('user')
     const token = localStorage.getItem('token');
     return this.http.post(apiUrl + 'users/' + username + '/movies/' + movieId, {
