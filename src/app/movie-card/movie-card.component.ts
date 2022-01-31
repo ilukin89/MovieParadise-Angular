@@ -41,10 +41,14 @@ getMovies(): void {
    * get an array of the user's favorite movies from user's data
    */
    getFavoriteMovies(): void {
+   
     const user = localStorage.getItem('user');
+
+let _user = JSON.parse(String(user));
+console.log("User from localStorage", _user.Username)
     this.fetchApiData.getUser(user).subscribe((resp: any) => {
       this.FavoriteMovies = resp.FavoriteMovies;
-      console.log(this.FavoriteMovies);
+      console.log("getUser Response", resp)
     });
   }
 
@@ -138,7 +142,9 @@ getMovies(): void {
    * @returns true or false
    */
   isFavorite(MovieID: string): boolean {
-    return this.FavoriteMovies.some((movie) => movie._id === MovieID);
+    return this.FavoriteMovies.includes(MovieID)
+    // return this.FavoriteMovies.some((movie) => movie._id === MovieID);
+
   }
 
   /**
@@ -150,26 +156,17 @@ getMovies(): void {
    * @param movie {any}
    */
   toggleFavorite(movie: any): void {
+    console.log({movie});
+    
     this.isFavorite(movie._id)
       ? this.deleteMovie(movie._id, movie.Title)
       : this.addFavoriteMovie(movie._id, movie.Title);
+      
+
   }
 
-  // favCheck(movieId: string): any {
-  //   let favIds = this.currentFavs.map(function (fav: any) { return fav._id });
-  //   if (favIds.includes(movieId)) {
-  //     this.isInFavs = true;
-  //     return this.isInFavs;
-  //   };
-  // }
+  
 
 
 
- inFavorites (movieId: string): boolean {
-   if (this.FavoriteMovies.includes(movieId)) {
-     return true; 
-   } else {
-     return false;
-   }
- }  
 }

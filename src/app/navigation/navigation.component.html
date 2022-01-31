@@ -1,0 +1,65 @@
+<!-- <button mat-button [matMenuTriggerFor]="menu"> Menu</button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>My Profile</button>
+  <button mat-menu-item>Log Out</button>
+</mat-menu> -->
+
+<div>
+  <mat-toolbar class="mat-elevation-z6">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+   
+
+    <span class="spacer"></span>
+
+    <div fxShow="true" fxHide.lt-md="true">
+      <a mat-button class="head-menu" routerLink="/movies"
+        ><mat-icon>movie</mat-icon> All Movies</a
+      >
+      <!-- <a mat-button class="head-menu" routerLink="/favorites"
+        ><mat-icon>favorite</mat-icon> My Favorites</a
+      > -->
+      <a mat-button class="head-menu" routerLink="/users/"
+        ><mat-icon>person</mat-icon> My Profile</a
+      >
+      <a mat-raised-button class="head-menu-button" (click)="userLogout()"
+        >Log Out</a
+      >
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container fxFlexFill class="sidenav-container">
+    <mat-sidenav
+      #sidenav
+      fxLayout="column"
+      mode="over"
+      opened="false"
+      fxHide.gt-sm="true"
+      class="side-menu-container"
+    >
+      <div fxLayout="column">
+        <a mat-button class="menu-side" routerLink="/movies">
+          <mat-icon class="side-icon">movie</mat-icon>All Movies</a
+        >
+        <!-- <a mat-button class="menu-side" routerLink="/favorites">
+          <mat-icon class="side-icon">favorite</mat-icon>My Favorites</a
+        > -->
+        <a mat-button class="menu-side" routerLink="/users">
+          <mat-icon class="side-icon">person</mat-icon>My Profile</a
+        >
+        <mat-divider></mat-divider>
+
+        <a mat-button class="menu-side" (click)="userLogout()">
+          <mat-icon class="side-icon">exit_to_app</mat-icon> Log Out</a
+        >
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <app-movie-card *ngIf="router.url === '/movies'"></app-movie-card>
+      <app-user-profile *ngIf="router.url === '/users'"></app-user-profile>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

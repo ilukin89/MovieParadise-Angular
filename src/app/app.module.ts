@@ -21,11 +21,19 @@ import { GenreCardComponent } from './genre-card/genre-card.component';
 import { SynopsisCardComponent } from './synopsis-card/synopsis-card.component';
 import { EditProfileFormComponent } from './edit-profile-form/edit-profile-form.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
-  { path: 'movies', component: MovieCardComponent },
+  { path: 'movies', component: NavigationComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+  { path: 'users', component: NavigationComponent },
+
 ];
 
 
@@ -41,6 +49,7 @@ const appRoutes: Routes = [
     SynopsisCardComponent,
     EditProfileFormComponent,
     UserProfileComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +63,12 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    MatIconModule
+    MatIconModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
