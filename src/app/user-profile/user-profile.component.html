@@ -10,7 +10,7 @@
     <mat-card-content class="card-content">
       <p><b>Username</b>: {{ user.Username }}</p>
       <p><b>Email</b>: {{ user.Email }}</p>
-      <p><b>Birth Date</b>: {{ user.BirthDate | date: "MM/dd/yyyy":"UTC" }}</p>
+      <p><b>Birth Date</b>: {{ user.Birthday | date: "MM/dd/yyyy":"UTC" }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button
@@ -37,7 +37,7 @@
     <mat-card-header class="fav-header">
       <mat-card-title class="fav-title">{{ favorite.Title }}</mat-card-title>
       <mat-card-subtitle class="fav-subtitle">
-        Directed by: {{ favorite.Director.Name }}
+        Directed by: {{ favorite?.Director?.Name }}
       </mat-card-subtitle>
     </mat-card-header>
     <div class="img-container">
@@ -57,7 +57,7 @@
         color="accent"
         id="fav-action-btn"
         (click)="
-          openGenreDialog(favorite.Genre.Name, favorite.Genre.Description)
+          openGenreDialog(favorite.Genre?.Name, favorite.Genre.Description)
         "
       >
         Genre
@@ -68,7 +68,7 @@
         id="fav-action-btn"
         (click)="
         openDirectorDialog(
-            favorite.Director.Name,
+            favorite.Director?.Name,
             favorite.Director.Bio,
             favorite.Director.Birth
           )

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FetchApiDataService, User } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import { GenreCardComponent } from '../genre-card/genre-card.component';
 import { DirectorCardComponent } from '../director-card/director-card.component';
 import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
 
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -16,19 +17,28 @@ import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component'
 export class UserProfileComponent implements OnInit {
   user: any = {};
   Username = localStorage.getItem('user');
-
   FavMovies: any[] = [];
+
+    /**
+   *  Binding input values to userProfile object
+   */
+     @Input() userProfile = {
+      Username: this.user.Username,
+      Password: this.user.Password,
+      Email: this.user.Email,
+      Birthday: this.user.Birthday,
+    };
 
   constructor(
     public fetchApiData: FetchApiDataService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
     this.getUserInfo();
-    this.getFavoriteMovies();
+  
   }
 
   /**
@@ -43,22 +53,26 @@ export class UserProfileComponent implements OnInit {
       this.fetchApiData.getUser(user).subscribe((resp: User) => {
         this.user = resp;
 
-        console.log(this.user);
+        this.fetchApiData.getAllMovies().subscribe((response: any[]) => {
+          this.FavMovies = resp.FavoriteMovies.map(favMovieId => {
+            return response.find(movie => movie._id === favMovieId)
+          })
+        })
       });
     }
   }
 
-  /**
-   * get user's FavoriteMovies from the user's data
-   */
-  getFavoriteMovies(): void {
-    const user = localStorage.getItem('user');
-    this.fetchApiData.getUser(user).subscribe((resp: any) => {
-      this.FavMovies = resp.FavoriteMovies;
-      console.log(this.FavMovies);
-      return this.FavMovies;
-    });
-  }
+  // /**
+  //  * get user's FavoriteMovies from the user's data
+  //  */
+  // getFavoriteMovies(): void {
+  //   const user = localStorage.getItem('user');
+  //   this.fetchApiData.getUser(user).subscribe((resp: any) => {
+      
+  //     console.log(this.FavMovies);
+  //     return this.FavMovies;
+  //   });
+  // }
 
   /**
    * use API end-point to remove user favorite
@@ -126,7 +140,6 @@ export class UserProfileComponent implements OnInit {
    * @param name {string}
    * @param bio {string}
    * @param birth {string}
-   * @param death {string}
    */
   openDirectorDialog(
     name: string,
@@ -150,4 +163,6 @@ export class UserProfileComponent implements OnInit {
       width: '300px',
     });
   }
+
+  
 }

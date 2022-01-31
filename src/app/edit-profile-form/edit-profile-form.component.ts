@@ -30,6 +30,8 @@ export class EditProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+
+    
   }
 
   /**
@@ -39,6 +41,10 @@ export class EditProfileFormComponent implements OnInit {
     const user = localStorage.getItem('user');
     this.fetchApiData.getUser(user).subscribe((resp: any) => {
       this.user = resp;
+      this.userProfile.Username = resp.Username
+      this.userProfile.Email = resp.Email
+      this.userProfile.Birthday = resp.Birthday
+      this.userProfile.Password = resp.Password
     });
   }
 
@@ -52,7 +58,7 @@ export class EditProfileFormComponent implements OnInit {
    */
   editUser(): void {
     this.fetchApiData
-      .editUser(this.Username)
+      .editUser(this.userProfile)
       .subscribe(() => {
         this.dialogRef.close();
 
