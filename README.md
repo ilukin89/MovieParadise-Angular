@@ -1,5 +1,7 @@
 # MovieParadisexAngularClient
 
+Live demo: <a href="https://ilukin89.github.io/MovieParadise-Angular/">https://ilukin89.github.io/MovieParadise-Angular/</a>
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
 
 ## Development server
