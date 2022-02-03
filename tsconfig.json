@@ -29,4 +29,9 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
+
+  // "typedocOptions": {
+  //   "entryPoints": "modules",
+  //   "out": "docs"
+  // }
 }
