@@ -1,4 +1,4 @@
-# MovieParadisexAngularClient
+# MovieParadise AngularClient
 
 Live demo: <a href="https://ilukin89.github.io/MovieParadise-Angular/">https://ilukin89.github.io/MovieParadise-Angular/</a>
 
